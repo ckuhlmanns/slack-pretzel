@@ -22,22 +22,35 @@ rtm.on(
   'slack_event', 
   async (eventType, event) => {
     if (event && event.type === 'message') {
-        if (event.text === BOT_HANDLE) {
-            helloBot(event.channel, event.user)
+      
+        let containsMessage
+        if (event.text != undefined) { containsMessage = event.text.includes(BOT_HANDLE) } else { containsMessage = false }
+
+        if (containsMessage) {
+            console.log(event)
+
+            let channel = event.channel
+            let user = event.user
+            let ts
+            if (event.thread_ts) { ts = event.thread_ts } else { ts = event.ts }
+            
+            botResponse(channel, user, ts)
         }
     }
   }
 )
 
-function helloBot (channelId, userId) {
-    sendMessage(channelId, `Ready for your next PR <@${userId}> ?`)
+function botResponse (channelId, userId, ts) {
+    sendMessage(channelId, `<@${userId}> you are up! :troll:`, ts)
 }
 
-async function sendMessage(channel, message) {
+async function sendMessage(channel, message, ts) {
     await web.chat.postMessage(
       {
         channel: channel,
         text: message,
+        thread_ts: ts,
+        icon_emoji: ":pretzel:"
       }
     )
 }
