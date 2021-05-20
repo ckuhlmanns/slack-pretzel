@@ -27,7 +27,7 @@ rtm.on(
         if (event.text != undefined) { containsMessage = event.text.includes(BOT_HANDLE) } else { containsMessage = false }
 
         if (containsMessage) {
-            console.log(event)
+            console.debug(event)
 
             let channel = event.channel
             let user = event.user
@@ -40,7 +40,7 @@ rtm.on(
   }
 )
 
-function botResponse (channelId, userId, ts) {
+async function botResponse (channelId, userId, ts) {
     sendMessage(channelId, `<@${userId}> you are up! :troll:`, ts)
 }
 
