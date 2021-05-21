@@ -1,9 +1,12 @@
 import { RTMClient }  from '@slack/rtm-api'
 import  { WebClient } from '@slack/web-api'
-import { SLACK_OAUTH_TOKEN, BOT_STATUS_CHANNEL, BOT_HANDLE } from './constants'
+require('dotenv').config()
+
+import { BOT_STATUS_CHANNEL, BOT_HANDLE } from './constants'
 
 const packageJson = require('../package.json')
 
+let SLACK_OAUTH_TOKEN = process.env.SLACK_OAUTH_TOKEN
 const rtm = new RTMClient(SLACK_OAUTH_TOKEN)
 const web = new WebClient(SLACK_OAUTH_TOKEN)
 
