@@ -1,0 +1,46 @@
+{
+  "name": "slack-pretzel",
+  "version": "0.0.0",
+  "description": "A Slack bot to summon a random team member.",
+  "main": "src",
+  "dependencies": {
+    "@slack/rtm-api": "^6.0.0",
+    "@slack/web-api": "^6.2.3",
+    "async-limiter": "^1.0.1",
+    "asynckit": "^0.4.0",
+    "axios": "^0.21.1",
+    "combined-stream": "^1.0.8",
+    "delayed-stream": "^1.0.0",
+    "dotenv": "^10.0.0",
+    "esm": "^3.2.25",
+    "eventemitter3": "^3.1.2",
+    "finity": "^0.5.4",
+    "follow-redirects": "^1.13.3",
+    "form-data": "^2.5.1",
+    "is-stream": "^1.1.0",
+    "mime-db": "^1.47.0",
+    "mime-types": "^2.1.30",
+    "p-cancelable": "^1.1.0",
+    "p-finally": "^1.0.0",
+    "p-queue": "^2.4.2",
+    "p-retry": "^4.5.0",
+    "p-timeout": "^3.2.0",
+    "retry": "^0.12.0",
+    "ws": "^5.2.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ckuhlmanns/slack-pretzel.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ckuhlmanns/slack-pretzel/issues"
+  },
+  "homepage": "https://github.com/ckuhlmanns/slack-pretzel#readme"
+}
