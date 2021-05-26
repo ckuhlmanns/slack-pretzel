@@ -1,3 +1,5 @@
+import * as Participant from './participant.js'
+
 import { RTMClient } from '@slack/rtm-api'
 import { WebClient } from '@slack/web-api'
 require('dotenv').config()
@@ -10,13 +12,11 @@ let SLACK_OAUTH_TOKEN = process.env.SLACK_OAUTH_TOKEN
 const rtm = new RTMClient(SLACK_OAUTH_TOKEN)
 const web = new WebClient(SLACK_OAUTH_TOKEN)
 
-rtm.start()
-  .catch(console.error)
+rtm.start().catch(console.error)
 
 rtm.on(
   'ready',
   async () => {
-    console.log('bot started')
     sendMessage(BOT_STATUS_CHANNEL, `Pretzel ${packageJson.version} is live !`)
   }
 )
@@ -33,18 +33,26 @@ rtm.on(
         console.debug(event)
 
         let channel = event.channel
-        let user = event.user
+        let targetUserId = Participant.getOtherThanUser(event.user)
+
         let ts
         if (event.thread_ts) { ts = event.thread_ts } else { ts = event.ts }
 
-        botResponse(channel, user, ts)
+        botResponse(channel, targetUserId, ts)
       }
     }
   }
 )
 
-async function botResponse(channelId, userId, ts) {
-  sendMessage(channelId, `<@${userId}> you are up! :troll:`, ts)
+async function botResponse(channelId, participant, ts) {
+  await web.chat.postMessage(
+    {
+      channel: channelId,
+      text: `<@${participant.user}> [${participant.alias}] you are up !`,
+      thread_ts: ts,
+      icon_emoji: participant.emoji
+    }
+  )
 }
 
 async function sendMessage(channel, message, ts) {
